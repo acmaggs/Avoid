@@ -1,0 +1,6 @@
+avoid
+lattice
+*.o
+.idea
+.clang-format
+cmake-build-debug/

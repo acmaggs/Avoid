@@ -1,0 +1,9 @@
+*.log
+*.aux
+*.out
+*.bbl
+*.blg
+auto/
+avoid.pdf
+Avoid.*/
+Lattice.*/

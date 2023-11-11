@@ -25,10 +25,10 @@ mt19937 gen(random_device{}()); //seed random number from quality source
 uniform_real_distribution<double> uniform(0.,1.);
 
 void code(){//print the code to this program
-    #include "avoid.hex"
-    for(auto i=0U;i<avoid_cc_len;i++)
-        cout<<avoid_cc[i];
-    exit(0);
+#include "avoid.hex"
+  for(auto i=0U;i<avoid_cc_len;i++)
+    cout<<avoid_cc[i];
+  exit(0);
 }
 
 void 

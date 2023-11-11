@@ -24,6 +24,13 @@ static string red="\u001b[31m";
 mt19937 gen(random_device{}()); //seed random number from quality source
 uniform_real_distribution<double> uniform(0.,1.);
 
+void code(){//print the code to this program
+    #include "avoid.hex"
+    for(auto i=0U;i<avoid_cc_len;i++)
+        cout<<avoid_cc[i];
+    exit(0);
+}
+
 void 
 step(vector<double> & x, vector<int> & count, int & a, int &b){//single ECMC step
   int n= x.size();
@@ -111,6 +118,8 @@ start(vector<double> & x){
 
 int
 main(int argc, char * argv[]){
+  if( argc ==2 && argv[1] == string("code"))//print out this c++ code
+    code();
   if (argc  > 1) 
     Param::N = stoi(argv[1]);
   if (argc > 2)

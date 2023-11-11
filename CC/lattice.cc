@@ -28,6 +28,13 @@ Graphics *g;
 mt19937 gen(random_device{}()); //seed random numbers from high quality source
 uniform_real_distribution<double> uniform(0.,1.);
 
+void code(){//print the code to this program
+    #include "lattice.hex"
+    for(auto i=0U;i<lattice_cc_len;i++)
+        cout<<lattice_cc[i];
+    exit(0);
+}
+
 inline void 
 step(vector<int> & x, vector<int> & count, int & a, int &b){//single ECMC step
   int n=x.size();
@@ -99,6 +106,8 @@ void sf(vector<int> &x){
 
 int
 main(int argc, char * argv[]){
+  if( argc ==2 && argv[1] == string("code"))
+    code();
   if (argc  > 1)
     Param::Np = stoi(argv[1]);
   if (argc > 2)

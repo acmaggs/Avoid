@@ -29,10 +29,10 @@ mt19937 gen(random_device{}()); //seed random numbers from high quality source
 uniform_real_distribution<double> uniform(0.,1.);
 
 void code(){//print the code to this program
-    #include "lattice.hex"
-    for(auto i=0U;i<lattice_cc_len;i++)
-        cout<<lattice_cc[i];
-    exit(0);
+#include "lattice.hex"
+  for(auto i=0U;i<lattice_cc_len;i++)
+    cout<<lattice_cc[i];
+  exit(0);
 }
 
 inline void 
@@ -131,8 +131,8 @@ main(int argc, char * argv[]){
   
   for (int i=0;i<Param::miter;i++){ //main loop over samples
     if( i % (8*1024) == 0) {
-	cout<<"l "<<i/1024<<endl;
-	log_out<<"l "<<i/1024<<" of "<<Param::miter/1024 <<endl<<flush;
+      cout<<"l "<<i/1024<<endl;
+      log_out<<"l "<<i/1024<<" of "<<Param::miter/1024 <<endl<<flush;
     }
     int b=0;//b is a, but unwrapped to follow displacement of activity
     int a=0;

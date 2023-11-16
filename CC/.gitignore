@@ -4,3 +4,4 @@ lattice
 .idea
 .clang-format
 cmake-build-debug/
+Run/

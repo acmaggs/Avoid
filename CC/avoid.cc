@@ -31,7 +31,7 @@ void code(){//print the code to this program
   exit(0);
 }
 
-void 
+double
 step(vector<double> & x, vector<int> & count, int & a, int &b){//single ECMC step
   int n= x.size();
   double r_step, l_step;
@@ -77,6 +77,7 @@ step(vector<double> & x, vector<int> & count, int & a, int &b){//single ECMC ste
     b--;
   }
   count[a]++;
+  return min(r_step, l_step);
 }
 
 void
@@ -84,18 +85,18 @@ sweep(vector<double> & x, vector<int> &count, int & a, int &b){ //N ECMC steps
   for (int i=0; i<Param::N;i++){
     step(x, count, a, b);
   }  
-  double sum = std::accumulate(x.begin(), x.end(), 0.0)/x.size();//remove drift
-  for (double & aa : x) aa-= sum;
+//  double sum = std::accumulate(x.begin(), x.end(), 0.0)/x.size();//remove drift
+//  for (double & aa : x) aa-= sum;
 }
 
 void
 save(vector<double> const&  x, vector<int> const & master, list<int> const & lst, list<int> const & blst, list<int> const & zlst, list<double> const & xlst){
-  ofstream cnt ("count.dat");
-  ofstream opos ("pos.dat");
-  ofstream lout ("list.dat");
-  ofstream bout ("blist.dat");
-  ofstream zout ("zlist.dat");
-  ofstream xout ("xlist.dat");
+  ofstream cnt ("count.dat"); //average L as a function of position
+  ofstream opos ("pos.dat"); //final configuration
+  ofstream lout ("list.dat"); //H for rho_2
+  ofstream bout ("blist.dat");// unwrapped position of active pointer, for rho_1
+  ofstream zout ("zlist.dat"); //returns to origin
+  ofstream xout ("xlist.dat"); //x[a] for last point in simulation
   
   for (double i : x) opos<<i<<"\n";
   for (int i : master) cnt<<i<<"\n";
@@ -116,30 +117,31 @@ start(vector<double> & x){
   cout<<"Warm start"<<endl;
 }
 
-int
-main(int argc, char * argv[]){
-  if( argc ==2 && argv[1] == string("code"))//print out this c++ code
-    code();
-  if (argc  > 1) 
-    Param::N = stoi(argv[1]);
-  if (argc > 2)
-    Param::iter = 1024*stoi(argv[2]);
-  ofstream log_out ("harmonic.log");
-  list<int> zlst;
-  list<int> lst;
-  list<int> blst;
-  list<double> xlst;
- 
-  vector<double> x(Param::N);
-  vector<int> count(Param::N);
-  vector<int> master(Param::N);
-  Timer t1;
-  uniform_int_distribution<> ran_int(0,Param::N-1); // distribution in range [0, N-1]
-  
-  if(!Param::cold) start(x);
-  cout<<yellow<<"N= "<<Param::N<<"Iterations="<<Param::iter<<"\tcold="<<Param::cold<<endl<<flush;
-  log_out<<"N="<<Param::N<<"\tIterations="<<Param::iter<<"\tcold="<<Param::cold<<endl<<flush;
+void 
+chain(vector<double> &x, vector<int> & count, int & a, int & b){
+  double t_chain=0;
+  double sample_time= Param::N;
+  int olda,oldb;
+  while(1){
+    olda=a;
+    oldb=b;
+    double s=step(x,count,a,b);
+    if( t_chain+s>sample_time ){// we have gone slightly too far, step back
+        a=olda;
+        b=oldb;
+        x[olda] -=  (-sample_time+ t_chain +s);
+        return;
+    }
+    else{
+        t_chain += s;
+    }
+  }
+}
 
+void
+mc(vector<double> &  x, vector<int>  & master, list<int> & lst, list<int>  & blst, list<int>  & zlst, list<double>  & xlst, ofstream & log_out){
+  uniform_int_distribution<> ran_int(0,Param::N-1); // distribution in range [0, N-1]
+  vector<int> count(Param::N);
   for (int l=0; l<Param::iter; l++){ //main loop for data 
     int a;
     if( l % (1024*8) == 0) {
@@ -157,7 +159,7 @@ main(int argc, char * argv[]){
     int a0 = a; //remember origin
     int b = 0; // "b" is almost "a" but unwrapped to follow activity
     std::fill(count.begin(), count.end(), 0); // reset count of site visits    
-    sweep( x , count, a, b);
+    chain( x , count, a, b); //or replace by sweep()
     lst.push_back( count[a] ); // H curve, rho_2
     blst.push_back( b ); //displacement, rho_1
     xlst.push_back( x[a] ); 
@@ -168,6 +170,34 @@ main(int argc, char * argv[]){
       master[i] += count[pos];
     }
   }
+}
+
+
+
+int
+main(int argc, char * argv[]){
+  if( argc ==2 && argv[1] == string("code"))//print out this c++ code
+    code();
+  if (argc  > 1) 
+    Param::N = stoi(argv[1]);
+  if (argc > 2)
+    Param::iter = 1024*stoi(argv[2]);
+  ofstream log_out ("harmonic.log");
+  list<int> zlst; // returns to origin, local time
+  list<int> lst; //measures h, rho_2
+  list<int> blst; //unwrapped final index, rho_1
+  list<double> xlst; //final position in x of chain
+ 
+  vector<double> x(Param::N);
+  vector<int> master(Param::N);
+  Timer t1;
+  
+  if(!Param::cold) start(x);
+  cout<<yellow<<"N= "<<Param::N<<"Iterations="<<Param::iter<<"\tcold="<<Param::cold<<endl<<flush;
+  log_out<<"N="<<Param::N<<"\tIterations="<<Param::iter<<"\tcold="<<Param::cold<<endl<<flush;
+
+  mc(x, master, lst, blst, zlst, xlst, log_out);
+
   save(x, master, lst, blst, zlst, xlst);
   log_out<<"Done"<<endl;
   cout<<red<<"Done"<<reset<<endl;

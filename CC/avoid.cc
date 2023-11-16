@@ -34,37 +34,24 @@ void code(){//print the code to this program
 double
 step(vector<double> & x, vector<int> & count, int & a, int &b){//single ECMC step
   int n= x.size();
-  double r_step, l_step;
+  double r_step, l_step, energy;
   int right = (a+1) % n;
   int left= (a-1+n) % n;
+  
   //collision to the right
   double sep=x[right]-x[a];
-  if ( sep > 0 ){
-    double energy =  -Param::T*log( uniform(gen));
-    double root = sqrt(2*energy);
-    r_step= root + sep;
-    assert(r_step>0);
-  }
-  else{
-    double energy = - Param::T*log( uniform(gen)) +sep*sep/2.;
-    double root = sqrt(2*energy);
-    r_step= root+sep;
-    assert(r_step > 0);
-  }
+  energy =  -Param::T*log( uniform(gen));
+  if ( sep < 0 )
+    energy += sep*sep/2.;
+  r_step= sqrt(2*energy)+sep;
+
   //collision to the left
   sep=x[a] - x[left];
-  if( sep > 0 ){
-    double energy =  -Param::T*log( uniform(gen)) +sep*sep/2.;
-    double root = sqrt( energy*2);
-    l_step = root-sep;
-    assert(l_step >0);
-  }
-  else{
-    double energy = -Param::T*log( uniform(gen));
-    double root = sqrt(2*energy);
-    l_step = root -sep;
-    assert(l_step >0);
-  }
+  energy = -Param::T*log( uniform(gen));
+  if( sep > 0 )
+    energy += sep*sep/2.;
+  l_step =  sqrt( energy*2) -sep;
+
   
   if (r_step<l_step){ //now choose between two candidates
     x[a] += r_step;

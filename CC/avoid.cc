@@ -72,6 +72,7 @@ sweep(vector<double> & x, vector<int> &count, int & a, int &b){ //N ECMC steps
   for (int i=0; i<Param::N;i++){
     step(x, count, a, b);
   }  
+  count[a]--;
 //  double sum = std::accumulate(x.begin(), x.end(), 0.0)/x.size();//remove drift
 //  for (double & aa : x) aa-= sum;
 }
@@ -147,7 +148,7 @@ mc(vector<double> &  x, vector<int>  & master, list<int> & lst, list<int>  & bls
     int a0 = a; //remember origin
     int b = 0; // "b" is almost "a" but unwrapped to follow activity
     std::fill(count.begin(), count.end(), 0); // reset count of site visits    
-    chain( x , count, a, b); //or replace by sweep()
+    chain( x , count, a, b); //chain() or replace by sweep()
     lst.push_back( count[a] ); // H curve, rho_2
     blst.push_back( b ); //displacement, rho_1
     xlst.push_back( x[a] ); 

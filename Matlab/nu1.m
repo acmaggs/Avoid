@@ -2,7 +2,7 @@ function y=nu1()  % symmetric displacement curve
     set(groot,'defaultAxesfontsize',16)
     load blist.dat
     width = sqrt(var(blist))     
-    binwidth = 2; %must be even
+    binwidth = 2 %must be even
     binwidth2 = 0.9;
     lw=3;
     [values, edges] = histcounts(abs(blist), 'BinWidth',binwidth);

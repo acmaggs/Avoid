@@ -1,7 +1,7 @@
 function nu2()
-    binwidth = 1;
+    binwidth = 1
     binwidth2 = 0.9;
-    lw=3
+    lw=3;
     set(groot,'defaultAxesfontsize',16)
 
 

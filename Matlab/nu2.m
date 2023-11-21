@@ -7,7 +7,7 @@ function nu2()
 
     load list.dat
     width = sqrt(var(list))
-    list = list-1;
+%    list = list-1;
     [values, edges] = histcounts(list, 'BinWidth',binwidth);
     mn_entry = mean(list)
   

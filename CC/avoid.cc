@@ -116,6 +116,7 @@ chain(vector<double> &x, vector<int> & count, int & a, int & b){
     if( t_chain+s>sample_time ){// we have gone slightly too far, step back
         a=olda;
         b=oldb;
+        count[olda]--;
         x[olda] -=  (-sample_time+ t_chain +s);
         return;
     }

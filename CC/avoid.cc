@@ -136,7 +136,7 @@ mc(vector<double> &  x, vector<int>  & master, list<int> & lst, list<int>  & bls
     int a;
     if( l % (1024*8) == 0) {
       cout<<"l "<<l/1024<<endl;
-      log_out<<"l "<<l/1024<<"of "<<Param::iter/1024<<endl<<flush;
+      log_out<<"l "<<l/1024<<" of "<<Param::iter/1024<<endl<<flush;
     }
     if( l % (1024*128) == 0)   save(x, master, lst, blst, zlst, xlst);
     
@@ -174,7 +174,7 @@ main(int argc, char * argv[]){
   if (argc > 2)
     Param::iter = 1024*stoi(argv[2]);
   ofstream log_out ("harmonic.log");
-  log_out<<GIT_COMMIT<<endl;
+  log_out<<"git commit string "<<GIT_COMMIT<<endl;
   list<int> zlst; // returns to origin, local time
   list<int> lst; //measures h, rho_2
   list<int> blst; //unwrapped final index, rho_1

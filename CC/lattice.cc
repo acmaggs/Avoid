@@ -7,6 +7,7 @@
 #include <algorithm>    // std::shuffle
 #include "timer.h"
 #include "graphics.h"
+#include "version.h"
 
 namespace Param{
   const int p=2; // lattice is p*Np sites
@@ -113,6 +114,7 @@ main(int argc, char * argv[]){
   if (argc > 2)
     Param::miter = 1024*stoi(argv[2]);
   ofstream log_out ("tasep.log");
+  log_out<<GIT_COMMIT<<endl;
   Timer t1;
   cout<<yellow<<"Param::p="<<Param::p<<"\tNp="<<Param::Np<<"\tmiter="<<Param::miter<<"\tdo_equilibrate="<<Param::do_equilibrate<<reset<<endl;
   log_out << "Param::p="<<Param::p<<"\tNp="<<Param::Np<<"\tmiter="<<Param::miter<<"\tdo_equilibrate="<<Param::do_equilibrate<<endl;

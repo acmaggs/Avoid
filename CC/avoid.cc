@@ -6,6 +6,7 @@
 #include <cmath>
 #include <list>
 #include "timer.h"
+#include "version.h"
 
 using namespace std;
 // energy (x_i - x_{i+1})^2/2 event drive mc on gaussian chain, to compare with true self-avoiding walk
@@ -172,6 +173,7 @@ main(int argc, char * argv[]){
   if (argc > 2)
     Param::iter = 1024*stoi(argv[2]);
   ofstream log_out ("harmonic.log");
+  log_out<<GIT_COMMIT<<endl;
   list<int> zlst; // returns to origin, local time
   list<int> lst; //measures h, rho_2
   list<int> blst; //unwrapped final index, rho_1

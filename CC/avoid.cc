@@ -138,6 +138,7 @@ mc(vector<double> &  x, vector<int>  & master, list<int> & lst, list<int>  & bls
       cout<<"l "<<l/1024<<endl;
       log_out<<"l "<<l/1024<<"of "<<Param::iter/1024<<endl<<flush;
     }
+    if( l % (1024*128) == 0)   save(x, master, lst, blst, zlst, xlst);
     
     if (Param::cold) {
       a = 0;

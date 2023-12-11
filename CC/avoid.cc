@@ -28,6 +28,33 @@ static string red="\u001b[31m";
 
 mt19937 gen(random_device{}()); //seed random number from quality source
 uniform_real_distribution<double> uniform(0.,1.);
+normal_distribution<double> gauss(0.0,1.0);
+
+
+void
+build_cholesky(vector<double> &d, vector<double> &o, vector<double> &c){ //cholesky factor for 1d laplacian
+  int n= d.size();
+  for(int i=0;i<n-1 ;i++) {
+     d[i] = sqrt( (i+2.)/(i+1.));//diagonal
+     o[i] = -1/d[i]; // diagonal+1
+  }
+  d[n-1]= sqrt(8.);//arbitrary to have +ve matrix
+  for(int i=0;i<n;i++) c[i] = -1./sqrt( (i+1)*(i+2)); //correction for periodic bc
+  c[n-2]= -sqrt( n/(n-1.));
+  c[n-1]=d[n-1];
+  o[n-2]= c[n-2];
+}
+
+void
+random_config(vector<double> &conf, vector<double> & d,vector<double> & o,vector<double> & c){ //solve for a configuration by back substitution
+  int n=d.size();
+  vector<double> r(n);
+  for (int i=0;i<n;i++) r[i]=gauss(gen);
+  conf[n-1]= r[n-1]/d[n-1];
+  conf[n-2]= (r[n-2]-conf[n-1]*o[n-2] )/ d[n-2];
+  for(int i=0;i<n-2;i++) conf[n-3-i]= (r[n-3-i]-conf[n-2-i]*o[n-3-i] - c[n-3-i]*conf[n-1])/ d[n-3-i];
+}
+
 
 void code(){//print the code to this program
 #include "avoid.hex"
@@ -78,8 +105,14 @@ sweep(vector<double> & x, vector<int> &count, int & a, int &b){ //N ECMC steps
     step(x, count, a, b);
   }  
   count[a]--;
-//  double sum = std::accumulate(x.begin(), x.end(), 0.0)/x.size();//remove drift
-//  for (double & aa : x) aa-= sum;
+}
+
+void
+build_harmonic(vector<double> & x){
+  int n=x.size();
+  vector<double> d(n),o(n), c(n);
+  build_cholesky(d, o, c);
+  random_config(x, d,o, c);
 }
 
 void
@@ -154,14 +187,15 @@ mc(vector<double> &  x, vector<int>  & master, list<int> & lst, list<int>  & bls
     if( l % (1024*128) == 0)   save(x, master, lst, blst, zlst, xlst);
     
     if (Param::cold) {
-      a = 0;
       std::fill(x.begin(), x.end(), 0); // reset position
       if (Param::GRAPH)
           for (int i=0;i<Param::N;i++) x[i] = 30*sin( (4*2.*i*M_PI)/Param::N)-20;
     }
     else{
-      a= ran_int(gen);
+      build_harmonic(x);
     }
+
+    a = 0;
     int a0 = a; //remember origin
     int b = 0; // "b" is almost "a" but unwrapped to follow activity
     std::fill(count.begin(), count.end(), 0); // reset count of site visits    
@@ -199,7 +233,6 @@ main(int argc, char * argv[]){
   vector<int> master(Param::N);
   Timer t1;
   
-  if(!Param::cold) start(x);
   cout<<yellow<<"N= "<<Param::N<<"Iterations="<<Param::iter<<"\tcold="<<Param::cold<<endl<<flush;
   log_out<<"N="<<Param::N<<"\tIterations="<<Param::iter<<"\tcold="<<Param::cold<<endl<<flush;
 

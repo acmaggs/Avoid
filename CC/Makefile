@@ -17,11 +17,11 @@ lattice.hex: lattice.cc
 avoid.hex: avoid.cc
 	xxd  -i avoid.cc  >avoid.hex
 
-avoid: avoid.o 
-	$(CXX) $(CXXFLAGS) avoid.o -o $@
+avoid: avoid.o  graphics_avoid.o
+	$(CXX) $(CXXFLAGS) avoid.o  graphics_avoid.o -o $@  -L/opt/local/lib -lcairo   -lX11 -lm
 
 lattice: lattice.o graphics.o 
-	$(CXX) $(CXXFLAGS) lattice.o graphics.o -o $@ -L/opt/local/lib -lcairo  -L/opt/X11/lib  -lX11 -lm
+	$(CXX) $(CXXFLAGS) lattice.o graphics.o -o $@ -L/opt/local/lib -lcairo    -lX11 -lm
 
 version.h:
 	git log -n 1 --format=format:"#define GIT_COMMIT \"%H\"%n" HEAD > $@

@@ -30,7 +30,7 @@ class Graphics{
   Graphics(const Graphics &g ){// stop the program when passing windows as argument
     printf("Don't pass graphics objects: use a pointer  %p \n" , &g); exit(2);
   }
-  void draw(std::vector<int> &, double,int,int );//draw the particles
+  void draw(std::vector<double> &, double,int,int );//draw the particles
   ~Graphics();
 };
 

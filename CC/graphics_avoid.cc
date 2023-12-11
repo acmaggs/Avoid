@@ -5,10 +5,10 @@
 #include <ctime>
 #include <unistd.h>
 #include <cassert>
-#include "graphics.h"
+#include "graphics_avoid.h"
 
 void
-Graphics::draw(std::vector<int> &p, double FPS,int l, int act){
+Graphics::draw(std::vector<double> &p, double FPS,int l, int act){
 
   //  const int FPS=50;//frames per second
   struct timespec tm={0,(long int)(1000000000/FPS)}; //Sleep in nanoseconds between frames
@@ -31,7 +31,7 @@ Graphics::draw(std::vector<int> &p, double FPS,int l, int act){
     else{
       cairo_set_source_rgb(cr, 1, 1, 1);
     }
-    cairo_arc(cr,   (alpha + gamma* (p[i] + lmin)) ,150 , 3.5*alpha, 0, 2 * M_PI);
+    cairo_arc(cr,   (alpha + gamma* ( i  + lmin)) , 120-4*p[i] , 3.5*alpha, 0, 2 * M_PI);
     cairo_fill(cr);//draw all particles with solid color
   }
 
@@ -59,7 +59,7 @@ Graphics::Graphics(int N, int Pix, double dmin, double dmax,double diameter){
 
     if (( dsp = XOpenDisplay(NULL)) == NULL)      exit(1);//window management X11, and cairo graphics
     int screen = DefaultScreen(dsp);
-    da = XCreateSimpleWindow(dsp, DefaultRootWindow(dsp), 0, 0, Dim, 300, 0, 0, 0);
+    da = XCreateSimpleWindow(dsp, DefaultRootWindow(dsp), 0, 0, Dim, 500, 0, 0, 0);
     XMapWindow(dsp, da);
     sfc = cairo_xlib_surface_create(dsp, da, DefaultVisual(dsp, screen), Dim , Dim);
     cairo_xlib_surface_set_size(sfc, Dim, Dim-400);

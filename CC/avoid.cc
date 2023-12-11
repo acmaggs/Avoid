@@ -7,6 +7,7 @@
 #include <list>
 #include "timer.h"
 #include "version.h"
+#include "graphics_avoid.h"
 
 using namespace std;
 // energy (x_i - x_{i+1})^2/2 event drive mc on gaussian chain, to compare with true self-avoiding walk
@@ -16,7 +17,10 @@ namespace Param{
   int iter = 1024*128; //number of samples
   const int cold=true;  //hot or cold start
   const double T=1; // temperature
+  const int GRAPH=0;//animation on screen
 }
+
+Graphics *g;
 
 static string reset="\u001b[0m";
 static string yellow="\u001b[33m";
@@ -110,6 +114,7 @@ void
 chain(vector<double> &x, vector<int> & count, int & a, int & b){
   double t_chain=0;
   double sample_time= Param::N;
+  if(Param::GRAPH) sample_time *= 100;
   int olda,oldb;
   while(1){
     olda=a;
@@ -125,6 +130,8 @@ chain(vector<double> &x, vector<int> & count, int & a, int & b){
     else{
         t_chain += s;
     }
+   if(Param::GRAPH)
+        g->draw(x,  60 , a , a);
   }
 }
 
@@ -132,6 +139,12 @@ void
 mc(vector<double> &  x, vector<int>  & master, list<int> & lst, list<int>  & blst, list<int>  & zlst, list<double>  & xlst, ofstream & log_out){
   uniform_int_distribution<> ran_int(0,Param::N-1); // distribution in range [0, N-1]
   vector<int> count(Param::N);
+ if(Param::GRAPH) {
+    double dmin=0.02*Param::N;
+    double dmax=Param::N*1.05;
+    double diameter=0.2;
+    g= new Graphics(Param::N, 1800, dmin, dmax, diameter);
+  }
   for (int l=0; l<Param::iter; l++){ //main loop for data 
     int a;
     if( l % (1024*8) == 0) {
@@ -143,6 +156,8 @@ mc(vector<double> &  x, vector<int>  & master, list<int> & lst, list<int>  & bls
     if (Param::cold) {
       a = 0;
       std::fill(x.begin(), x.end(), 0); // reset position
+      if (Param::GRAPH)
+          for (int i=0;i<Param::N;i++) x[i] = 30*sin( (4*2.*i*M_PI)/Param::N)-20;
     }
     else{
       a= ran_int(gen);

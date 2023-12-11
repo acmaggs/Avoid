@@ -72,7 +72,7 @@ sweep(vector<int> & x, vector<int> &count, int & a, int &b){ //N ECMC steps
   for ( auto i=0U; i<factor*x.size()/2;i++){// note 1/2 here, prevents wrap-around in smaller systems
     step(x, count, a, b);
     if(Param::GRAPH)  
-	g->draw(x,  24 , i , a); 
+	g->draw(x,  60 , i , a); 
   }
 }
 

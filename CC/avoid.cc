@@ -46,10 +46,16 @@ build_cholesky(vector<double> &d, vector<double> &o, vector<double> &c){ //chole
 }
 
 void
-random_config(vector<double> &conf, vector<double> & d,vector<double> & o,vector<double> & c){ //solve for a configuration by back substitution
+random_config(vector<double> &conf, vector<double> & d,vector<double> & o,vector<double> & c, int test){ //solve for a configuration by back substitution
   int n=d.size();
   vector<double> r(n);
-  for (int i=0;i<n;i++) r[i]=gauss(gen);
+  if(!test) {
+    for (int i=0;i<n;i++) r[i]=gauss(gen);
+  }
+  else{
+    for (int i=0;i<n;i++) r[i]=sqrt(i+1);
+  }
+
   conf[n-1]= r[n-1]/d[n-1];
   conf[n-2]= (r[n-2]-conf[n-1]*o[n-2] )/ d[n-2];
   for(int i=0;i<n-2;i++) conf[n-3-i]= (r[n-3-i]-conf[n-2-i]*o[n-3-i] - c[n-3-i]*conf[n-1])/ d[n-3-i];
@@ -112,7 +118,7 @@ build_harmonic(vector<double> & x){
   int n=x.size();
   vector<double> d(n),o(n), c(n);
   build_cholesky(d, o, c);
-  random_config(x, d,o, c);
+  random_config(x, d,o, c,0);
 }
 
 void
@@ -212,6 +218,27 @@ mc(vector<double> &  x, vector<int>  & master, list<int> & lst, list<int>  & bls
   }
 }
 
+void
+test() {
+  cout<<"Test of cholesky code, to compare with matlab solution for debugging"<<endl;
+  vector<double> x(7);
+  int n=x.size();
+  vector<double> d(n),o(n), c(n);
+  build_cholesky(d, o, c);
+  random_config(x, d,o, c,1);
+  cout<<setprecision(5);
+  cout<<"d \t";
+  for(auto y:d) cout<<y<<" ";
+  cout<<"\no \t";
+  for(auto y:o) cout<<y<<" ";
+  cout<<"\nc \t";
+  for(auto y:c) cout<<y<<" ";
+  cout<<"\nx \t";
+  for(auto y:x) cout<<y<<" ";
+  cout<<endl;
+  cout<<"this last line should be"<<endl;
+  cout<<"  3.9533    5.5570    6.1357    5.8691    4.8665    3.2032    0.9354"<<endl;
+}
 
 
 int
@@ -222,6 +249,7 @@ main(int argc, char * argv[]){
     Param::N = stoi(argv[1]);
   if (argc > 2)
     Param::iter = 1024*stoi(argv[2]);
+  test();
   ofstream log_out ("harmonic.log");
   log_out<<"git commit string "<<GIT_COMMIT<<endl;
   list<int> zlst; // returns to origin, local time

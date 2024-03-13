@@ -1,7 +1,9 @@
 clear
-n=7
-M=mk(n);
+n=7;
+M=mk(n)
+cholesky=chol(M)
 X=build(M);
+my_chol=full(X)
 dim=500000;
 r = normrnd(0,1,[n,dim]);
 
@@ -13,7 +15,7 @@ cor=s*s'/dim
 r = normrnd(0,1,[n,dim]);
 inv2=X \r ;
 %inverse of M: correlation matrix
-cor2= inv2 *inv2'/dim;
+cor2= inv2 *inv2'/dim
 
 %should be close to (eye)
 prod=(M*cor2 +cor2*M)/2

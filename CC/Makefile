@@ -3,7 +3,7 @@ UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)
 	CXX=clang++-15
 else
-	CXX=clang++-mp-17
+	CXX=clang++-mp-18
 endif
 all: avoid lattice
 
@@ -26,7 +26,7 @@ lattice: lattice.o graphics.o
 version.h:
 	git log -n 1 --format=format:"#define GIT_COMMIT \"%H\"%n" HEAD > $@
 lint:
-	scan-build-mp-17  -o html make
+	scan-build-mp-18  -o html make
 lint2:
 	cppcheck --enable=all  --suppress=missingIncludeSystem avoid.cc
 	cppcheck --enable=all  --suppress=missingIncludeSystem lattice.cc

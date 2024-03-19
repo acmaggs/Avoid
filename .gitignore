@@ -9,3 +9,5 @@ Avoid.*/
 Lattice.*/
 *.hex
 CC/version.h
+/CC/.run
+*.xml

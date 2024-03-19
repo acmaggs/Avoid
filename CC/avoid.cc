@@ -155,7 +155,7 @@ chain(vector<double> &x, vector<int> & count, int & a, int & b){
   double sample_time= Param::N;
   if(Param::GRAPH) sample_time *= 100;
   int olda,oldb;
-  while(1){
+  while(true){
     olda=a;
     oldb=b;
     double s=step(x,count,a,b);

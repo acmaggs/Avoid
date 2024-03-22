@@ -1,7 +1,7 @@
 UNAME := $(shell uname)
 
 ifeq ($(UNAME), Linux)
-	CXX=clang++-15
+	CXX=clang++-18
 else
 	CXX=clang++-mp-18
 endif

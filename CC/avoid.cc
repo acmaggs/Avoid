@@ -6,6 +6,7 @@
 #include <cmath>
 #include <list>
 #include "timer.h"
+#include <iomanip>
 #include "version.h"
 #include "graphics_avoid.h"
 

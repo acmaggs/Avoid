@@ -26,7 +26,7 @@ static string red="\u001b[31m";
 
 Graphics *g;
 
-mt19937 gen(random_device{}()); //seed random numbers from high quality source
+mt19937_64 gen(random_device{}()); //seed random numbers from high quality source
 uniform_real_distribution<double> uniform(0.,1.);
 
 void code(){//print the code to this program

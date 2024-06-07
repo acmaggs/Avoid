@@ -27,7 +27,7 @@ static string reset="\u001b[0m";
 static string yellow="\u001b[33m";
 static string red="\u001b[31m";
 
-mt19937 gen(random_device{}()); //seed random number from quality source
+mt19937_64 gen(random_device{}()); //seed random number from quality source
 uniform_real_distribution<double> uniform(0.,1.);
 normal_distribution<double> gauss(0.0,1.0);
 

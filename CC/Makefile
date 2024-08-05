@@ -5,6 +5,7 @@ ifeq ($(UNAME), Linux)
 else
 	CXX=clang++-mp-18
 endif
+CXX=clang++
 all: avoid lattice
 
 CXXFLAGS=-g -O3 -Wall -Wextra -std=c++20 -Wshadow -I/opt/local/include/

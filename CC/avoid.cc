@@ -14,11 +14,11 @@ using namespace std;
 // energy (x_i - x_{i+1})^2/2 event drive mc on gaussian chain, to compare with true self-avoiding walk
 
 namespace Param{
-  int N = 1024; //number of particles
+  int N = 128; //number of particles
   int iter = 1024*128; //number of samples
   const int cold=true;  //hot or cold start
   const double T=1; // temperature
-  const int GRAPH=0;//animation on screen
+  const int GRAPH=1;//animation on screen
 }
 
 Graphics *g;
@@ -196,7 +196,7 @@ mc(vector<double> &  x, vector<int>  & master, list<int> & lst, list<int>  & bls
     if (Param::cold) {
       std::fill(x.begin(), x.end(), 0); // reset position
       if (Param::GRAPH)
-          for (int i=0;i<Param::N;i++) x[i] = 30*sin( (4*2.*i*M_PI)/Param::N)-20;
+          for (int i=0;i<Param::N;i++) x[i] = 60*cos( (2.*i*M_PI)/Param::N)-20;
     }
     else{
       build_harmonic(x);

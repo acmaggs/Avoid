@@ -20,7 +20,8 @@ Graphics::draw(std::vector<double> &p, double FPS,int l, int act){
   char a[10];
       
   cairo_push_group(cr); //start drawing
-  cairo_set_source_rgb(cr, 0.0, 0.1, .1);//dark green background
+//  cairo_set_source_rgb(cr, 0.0, 0.1, .1);//dark green background
+  cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);//dark green background
   cairo_paint (cr); //clear screen with green
   
   for(int i=0;i<Np;i++){// place the particles in the graphics buffer, without drawing
@@ -31,7 +32,7 @@ Graphics::draw(std::vector<double> &p, double FPS,int l, int act){
     else{
       cairo_set_source_rgb(cr, 1, 1, 1);
     }
-    cairo_arc(cr,   (alpha + gamma* ( i  + lmin)) , 120-4*p[i] , 3.5*alpha, 0, 2 * M_PI);
+    cairo_arc(cr,   (alpha + .7*gamma* ( i  + lmin)) , 190-4*p[i] , 3.5*alpha, 0, 2 * M_PI);
     cairo_fill(cr);//draw all particles with solid color
   }
 
@@ -59,7 +60,7 @@ Graphics::Graphics(int N, int Pix, double dmin, double dmax,double diameter){
 
     if (( dsp = XOpenDisplay(NULL)) == NULL)      exit(1);//window management X11, and cairo graphics
     int screen = DefaultScreen(dsp);
-    da = XCreateSimpleWindow(dsp, DefaultRootWindow(dsp), 0, 0, Dim, 500, 0, 0, 0);
+    da = XCreateSimpleWindow(dsp, DefaultRootWindow(dsp), 0, 0, Dim, 700, 0, 0, 0);
     XMapWindow(dsp, da);
     sfc = cairo_xlib_surface_create(dsp, da, DefaultVisual(dsp, screen), Dim , Dim);
     cairo_xlib_surface_set_size(sfc, Dim, Dim-400);

@@ -28,6 +28,7 @@ Airy functions are from  Meg Noah (2023). Negative Zeros of the Airy Functions (
 
 
 #Event-chain Monte Carlo and the true self-avoiding walk
+## Abstract
 We study the large-scale dynamics of event chain Monte Carlo algorithms in one dimension, and their relation to the true self-avoiding walk. In particular, we study the influence of stress, and different forms of interaction on the equilibration and sampling properties of algorithms with global balance, but no local balance. 
 
 [https://arxiv.org/abs/2410.08694](https://arxiv.org/abs/2410.08694)

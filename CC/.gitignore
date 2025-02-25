@@ -6,3 +6,4 @@ lattice
 cmake-build-debug/
 Run*/
 *.dat
+Ratio/

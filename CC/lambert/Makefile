@@ -1,7 +1,6 @@
-CPPFLAGS=-I/opt/local/libexec/boost/1.81/include/
-CPPFLAGS=-I$(HOME)/boost/boost_1_86_0/
+CPPFLAGS=-I$(HOME)/boost/boost_1_87_0/
 CXXFLAGS=-std=c++23  -g -O3 -Wall  -Wextra -Wshadow # -Wno-deprecated
-CXX=clang++-mp-19
+CXX=clang++
 
 all:lambert
 

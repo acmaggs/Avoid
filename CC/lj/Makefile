@@ -2,15 +2,15 @@ UNAME=$(shell uname -s)
 
 ifeq ($(UNAME), Darwin)
         CXX=clang++-mp-19
-        CPPFLAGS=-I/opt/X11/include -I/opt/local//include  -I$(HOME)/github/HighFive/include -I$(HOME)/boost/boost_1_86_0/  -I/opt/X11/include -I/opt/local//include
+        CPPFLAGS=-I/opt/X11/include -I/opt/local//include  -I$(HOME)/github/HighFive/include -I$(HOME)/boost/boost_1_87_0/  -I/opt/X11/include -I/opt/local//include
         LDFLAGS=-L/opt/local/lib -lhdf5  -lm
 else
         CPPFLAGS=-I/usr/include/hdf5/serial -I$(HOME)/github/HighFive/include
         LDFLAGS=-L/usr/lib/x86_64-linux-gnu/hdf5/serial   -L/usr/include/hdf5/serial  -lhdf5  -lm
         CXX=clang++-18
 endif
-
 CXXFLAGS= -Wall -Wshadow -Wextra  -std=c++23  -g -O3
+CXX=clang++
 
 OBJ=roots.o graphics_avoid.o
 all: simul   # testi  testlj

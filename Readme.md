@@ -25,3 +25,5 @@ the results with the analytic curves computed using Matlab.
 The scripts are for MacOS but can trivially be changed to run on Linux.
 
 Airy functions are from  Meg Noah (2023). Negative Zeros of the Airy Functions (https://www.mathworks.com/matlabcentral/fileexchange/88848-negative-zeros-of-the-airy-functions).
+
+Code for second paper in directory `Paper2`

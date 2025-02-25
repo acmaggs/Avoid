@@ -27,7 +27,7 @@ The scripts are for MacOS but can trivially be changed to run on Linux.
 Airy functions are from  Meg Noah (2023). Negative Zeros of the Airy Functions (https://www.mathworks.com/matlabcentral/fileexchange/88848-negative-zeros-of-the-airy-functions).
 
 
-#Event-chain Monte Carlo and the true self-avoiding walk
+# Event-chain Monte Carlo and the true self-avoiding walk
 ## Abstract
 We study the large-scale dynamics of event chain Monte Carlo algorithms in one dimension, and their relation to the true self-avoiding walk. In particular, we study the influence of stress, and different forms of interaction on the equilibration and sampling properties of algorithms with global balance, but no local balance. 
 

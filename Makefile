@@ -1,2 +1,2 @@
 clobber:
-	$(RM) -rf ./Lattice.* ./Avoid.*
+	$(RM) -rf ./Lattice.* ./Avoid.* ./Lambert.* ./LJ.*

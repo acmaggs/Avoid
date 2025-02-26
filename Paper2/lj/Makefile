@@ -32,7 +32,7 @@ simul: $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $@  $(OBJ) $(LDFLAGS) -lcairo  -L/opt/X11/lib  -lX11  
 
 clean:
-	$(RM) *.o simul */*.html *hex version.h
+	$(RM) *.o simul */*.html *hex version.h source.code
 clobber:clean
 	$(RM) -rf *.dat simul t *.w *~ ./html/* *.log *.w
 tar:

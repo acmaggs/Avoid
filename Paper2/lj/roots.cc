@@ -1,7 +1,7 @@
 /** @file
 * **Factor field for Lennard-Jones.**
 */
-#define DOGRAPH 1
+#define DOGRAPH 0
 
 #include <string>
 #include <cassert>
@@ -48,11 +48,11 @@ namespace LJ{
 namespace Control{
   int N=64;// chain size
   const int iter=128*8*8*2*8;
-  double sample_time=8. ; //length of chain
+  double sample_time=128. ; //length of chain
   const int sweeps=10000 ;//for Sq-virial runs
 
   const bool load_samples=true;// for hot or cold runs
-  const bool single_run=true;
+  const bool single_run=false;
 
   const bool Print=false; /*!< Control::Print detailed debugging information */
   bool DIST=false; /*!< DISR: print statistics on interactions/energy */

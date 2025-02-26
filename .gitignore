@@ -11,3 +11,5 @@ Lattice.*/
 CC/version.h
 /CC/.run
 *.xml
+delta.h
+source.code

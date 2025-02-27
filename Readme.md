@@ -37,5 +37,4 @@ Code for second paper in directory `Paper2/lj` and  `Paper2/lambert`
 
 # Test runs
 
-The `Scripts` directory contains four simple bash scripts that run harmonic, tasep, lambert, lennard-jones systems for a run of just a few minutes
-and plots the distribution functions using Matlab.
+The `Scripts` directory contains four simple bash scripts that run harmonic, tasep, lambert, lennard-jones systems for just a few minutes and plot the distribution functions using Matlab.

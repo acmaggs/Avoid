@@ -31,5 +31,8 @@ lint:
 lint2:
 	cppcheck --enable=all  --suppress=missingIncludeSystem avoid.cc
 	cppcheck --enable=all  --suppress=missingIncludeSystem lattice.cc
+lint3:
+	clang-tidy-mp-19  avoid.cc -- $(CXXFLAGS)
+	clang-tidy-mp-19  lattice.cc -- $(CXXFLAGS)
 clean:
 	$(RM)  *.o avoid lattice *log *.dat *synctex.gz *~ *docx *out *.blg *.fls *.hex version.h

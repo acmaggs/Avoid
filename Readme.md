@@ -33,3 +33,9 @@ We study the large-scale dynamics of event chain Monte Carlo algorithms in one d
 
 [https://arxiv.org/abs/2410.08694](https://arxiv.org/abs/2410.08694)
 Code for second paper in directory `Paper2/lj` and  `Paper2/lambert`
+
+
+## Test runs
+
+The Scripts directory contains four simple bash scripts that run harmonic, tasep, lambert, lennard-jones systems for a run of just a few minutes
+and plots the distribution functions using Matlab.

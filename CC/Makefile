@@ -3,9 +3,9 @@ UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)
 	CXX=clang++-18
 else
-	CXX=clang++-mp-18
+	CXX=clang++-mp-19
 endif
-CXX=clang++
+#CXX=clang++
 all: avoid lattice
 
 CXXFLAGS=-g -O3 -Wall -Wextra -std=c++20 -Wshadow -I/opt/local/include/

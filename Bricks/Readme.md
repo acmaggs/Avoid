@@ -1,7 +1,7 @@
 ## Dynamics of a bricklayer model: multi-walker realizations of true self-avoiding motion
 
 Code for the paper [https://www.arxiv.org/abs/2510.00975](https://www.arxiv.org/abs/2510.00975)
-# Introduction to `bricks.cc`
+### Introduction to `bricks.cc`
 
 This C++ program simulates the **Bricklayer Model**, a multi-walker generalization of the true self-avoiding walk described in the accompanying paper. It models the collective dynamics of $N$ agents ("bricklayers") building a wall by moving based on local height gradients.
 
@@ -64,11 +64,6 @@ The program accepts up to 5 arguments:
 3. `tstep`: Time step size.
 4. `N`: System size.
 5. `ns`: Number of steps in single run.
-
-Example:
-```
-./bricks 300 80 10 1024 1024
-
 
 ### Parameters (in namespace `Param`)
 

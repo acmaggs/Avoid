@@ -7,7 +7,7 @@ This C++ program simulates the **Bricklayer Model**, a multi-walker generalizati
 
 ## Core Concepts
 
-The simulation evolves the system in continuous time using a **Rejection-Free Kinetic Monte Carlo** (Gillespie-like) algorithm, efficiently managing event times using a sorted data structure.
+The simulation evolves the system in continuous time using a **Rejection-Free Kinetic Monte Carlo** algorithm, efficiently managing event times using a sorted data structure.
 
 ### Key Data Structures
 

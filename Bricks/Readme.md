@@ -1,4 +1,4 @@
-## Dynamics of a bricklayer model: multi-walker realizations of true self-avoiding motion
+# Dynamics of a bricklayer model: multi-walker realizations of true self-avoiding motion
 
 Code for the paper [https://www.arxiv.org/abs/2510.00975](https://www.arxiv.org/abs/2510.00975)
 ### Introduction to `bricks.cc`
@@ -9,7 +9,7 @@ This C++ program simulates the **Bricklayer Model**, a multi-walker generalizati
 
 The simulation evolves the system in continuous time using a **Rejection-Free Kinetic Monte Carlo** algorithm, efficiently managing event times using a sorted data structure.
 
-### Key Data Structures
+### Data Structures
 
 1.  **Event Queue (`multiset<shared_ptr<siteEvent>> events`)**:
     *   This is the heart of the simulation. It stores potential future jump events for all sites, sorted by time.
